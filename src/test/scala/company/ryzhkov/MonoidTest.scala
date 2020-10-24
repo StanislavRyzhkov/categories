@@ -37,19 +37,19 @@ class MonoidTest extends AnyFunSuite {
   }
 
   test("tuple") {
-    import company.ryzhkov.implicits.{intAdditionalMonoid, tupleMonoid}
+    import company.ryzhkov.implicits.{intAdditionalMonoid, stringMonoid, tupleMonoid}
 
-    val a = (1, 2)
-    val b = (3, 4)
-    val c = (5, 6)
-    val e = Monoid[(Int, Int)].mempty
+    val a = (1, "A")
+    val b = (3, "B")
+    val c = (5, "C")
+    val e = Monoid[(Int, String)].mempty
 
     assert((a |+| e) == a)
     assert((e |+| a) == a)
 
     assert(((a |+| b) |+| c) == (a |+| (b |+| c)))
 
-    assert((9, 12) == (a |+| b |+| c))
+    assert((9, "ABC") == (a |+| b |+| c))
   }
 
   test("option") {
