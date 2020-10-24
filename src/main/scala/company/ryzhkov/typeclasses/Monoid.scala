@@ -5,6 +5,9 @@ trait Monoid[A] {
 
   def mappend(a1: A, a2: A): A
 
+  def mconcat(list: List[A]): A =
+    list.foldRight(mempty)((x, y) => mappend(x, y))
+
   def |+|(a1: A, a2: A): A = mappend(a1, a2)
 }
 

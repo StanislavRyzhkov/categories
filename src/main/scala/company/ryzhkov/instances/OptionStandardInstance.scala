@@ -1,6 +1,6 @@
 package company.ryzhkov.instances
 
-import company.ryzhkov.typeclasses.Monoid
+import company.ryzhkov.typeclasses.{Functor, Monoid}
 import company.ryzhkov.typeclasses.Monoid.MonoidOps
 
 class OptionStandardInstance[A: Monoid] extends Monoid[Option[A]] {
@@ -21,5 +21,13 @@ class OptionFirstInstance[A] extends Monoid[Option[A]] {
     (a1, a2) match {
       case (None, x) => x
       case (x, _)    => x
+    }
+}
+
+class OptionFunctorInstance extends Functor[Option] {
+  override def fmap[A, B](fa: Option[A])(f: A => B): Option[B] =
+    fa match {
+      case Some(value) => Some(f(value))
+      case None        => None
     }
 }
