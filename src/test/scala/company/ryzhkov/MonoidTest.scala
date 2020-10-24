@@ -83,6 +83,7 @@ class MonoidTest extends AnyFunSuite {
     assert(((a |+| b) |+| c) == (a |+| (b |+| c)))
 
     assert((a |+| b |+| e |+| c).contains(2))
+    assert(Monoid[Option[Int]].mconcat(List(a, b, c)) == (a |+| b |+| c))
   }
 
   test("endo") {
