@@ -2,6 +2,9 @@ package company.ryzhkov.typeclasses
 
 trait Functor[F[_]] {
   def fmap[A, B](fa: F[A])(f: A => B): F[B]
+
+  def &>[A, B](fa: F[A])(b: B): F[B] =
+    fmap(fa)(_ => b)
 }
 
 object Functor {

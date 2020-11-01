@@ -1,8 +1,9 @@
 package company.ryzhkov
 
 import company.ryzhkov.datatypes.Tree
+import company.ryzhkov.instances.IdInstance.{Id, IdFunctorInstance}
 import company.ryzhkov.instances._
-import company.ryzhkov.typeclasses.{Functor, Monoid}
+import company.ryzhkov.typeclasses.{Applicative, Functor, Monoid}
 
 package object implicits {
   implicit val booleanMonoidAll: Monoid[Boolean] = new BooleanAll
@@ -26,4 +27,16 @@ package object implicits {
   implicit val listFunctorInstance: Functor[List] = new ListFunctorInstance
 
   implicit val treeFunctorInstance: Functor[Tree] = new TreeInstance
+
+  implicit def tupleFunctorInstance[T]: Functor[(T, *)] = new TupleFunctorInstance[T]
+
+  implicit def functionFunctorInstance[T]: Functor[T => *] = new FunctionInstance[T]
+
+  implicit val idFunctorInstance: Functor[Id] = new IdFunctorInstance
+
+  implicit val optionApplicativeInstance: Applicative[Option] = new OptionApplicativeInstance
+
+  implicit val listApplicativeInstance: Applicative[List] = new ListApplicativeInstance
+
+  implicit def tupleApplicativeInstance[T: Monoid]: Applicative[(T, *)] = new TupleApplicativeInstance[T]
 }
